@@ -4,16 +4,16 @@ function App() {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState("list");
   const [students, setStudents] = useState([
-    { name: "Dhruv", age: 20 },
-    { name: "Rahul", age: 22 },
+    { name: "Dhruv", age: 20, Enrollment: "7073", City: "Ahmedabad", Phone: "1234567890" },
+    { name: "Tannaz", age: 19, Enrollment: "7107", City: "Mumbai", Phone: "1234567890" },
   ]);
 
-  const [form, setForm] = useState({ name: "", age: "" });
+  const [form, setForm] = useState({ name: "", age: "", Enrollment: "", City: "", Phone: "" });
 
   const addStudent = () => {
     if (!form.name || !form.age) return;
     setStudents([...students, form]);
-    setForm({ name: "", age: "" });
+    setForm({ name: "", age: "", Enrollment: "", City: "", Phone: "" });
     setPage("list");
   };
 
@@ -22,12 +22,29 @@ function App() {
 
       {/* Sidebar */}
       <div className={`bg-gray-900 text-white w-64 p-5 space-y-6 absolute md:relative md:translate-x-0 transform ${open ? "translate-x-0" : "-translate-x-full"} transition duration-200`}>
-        
+
         <h2 className="text-2xl font-bold">Dashboard</h2>
 
         <nav className="space-y-2">
-          <p onClick={() => setPage("list")} className="hover:bg-gray-700 p-2 rounded cursor-pointer">Students</p>
-          <p onClick={() => setPage("add")} className="hover:bg-gray-700 p-2 rounded cursor-pointer">Add Student</p>
+          <p
+            onClick={() => setPage("list")}
+            className={`p-2 rounded cursor-pointer ${page === "list" ? "bg-gray-700" : "hover:bg-gray-700"}`}
+          >
+            Students
+          </p>
+          <p
+            onClick={() => setPage("add")}
+            className={`p-2 rounded cursor-pointer ${page === "add" ? "bg-gray-700" : "hover:bg-gray-700"}`}
+          >
+            Add Student
+          </p>
+          <p
+            onClick={() => setPage("contact")}
+            className={`p-2 rounded cursor-pointer ${page === "contact" ? "bg-gray-700" : "hover:bg-gray-700"}`}
+          >
+            Contact Us
+          </p>
+
         </nav>
       </div>
 
@@ -37,32 +54,63 @@ function App() {
         {/* Navbar */}
         <div className="bg-white shadow p-4 flex justify-between items-center">
           <button className="md:hidden text-xl" onClick={() => setOpen(!open)}>☰</button>
-          <h1 className="text-xl font-semibold">Student Management</h1>
+          <h1 className="text-xl font-semibold">Student Management System</h1>
         </div>
 
         {/* Content */}
         <div className="p-6">
+
+          
 
           {/* Student List */}
           {page === "list" && (
             <>
               <h2 className="text-2xl font-bold mb-4">Students</h2>
               <div className="bg-white shadow rounded overflow-hidden">
-                <table className="w-full text-left">
-                  <thead className="bg-gray-200">
+                <table className="w-full text-center border-collapse">
+
+                  <thead className="bg-gray-800 text-white">
                     <tr>
                       <th className="p-3">Name</th>
                       <th className="p-3">Age</th>
+                      <th className="p-3">Enrollment Number</th>
+                      <th className="p-3">City</th>
+                      <th className="p-3">Phone</th>
+                      <th className="p-3">Action</th>
                     </tr>
                   </thead>
+
                   <tbody>
-                    {students.map((s, index) => (
-                      <tr key={index} className="border-t">
-                        <td className="p-3">{s.name}</td>
-                        <td className="p-3">{s.age}</td>
+                    {students.length === 0 ? (
+                      <tr>
+                        <td colSpan="3" className="text-center p-4 text-gray-500">
+                          No students found
+                        </td>
                       </tr>
-                    ))}
+                    ) : (
+                      students.map((s, index) => (
+                        <tr key={index} className="border-t">
+                          <td className="p-3">{s.name}</td>
+                          <td className="p-3">{s.age}</td>
+                          <td className="p-3">{s.Enrollment}</td>
+                          <td className="p-3">{s.City}</td>
+                          <td className="p-3">{s.Phone}</td>
+                          <td className="p-3">
+                            <button
+                              onClick={() => {
+                                const updated = students.filter((_, i) => i !== index);
+                                setStudents(updated);
+                              }}
+                              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
+
                 </table>
               </div>
             </>
@@ -72,8 +120,8 @@ function App() {
           {page === "add" && (
             <>
               <h2 className="text-2xl font-bold mb-4">Add Student</h2>
-              <div className="bg-white p-6 rounded shadow space-y-4 max-w-md">
-                
+              <div className="bg-white p-6 rounded shadow space-y-4 max-w-md border">
+
                 <input
                   type="text"
                   placeholder="Name"
@@ -90,12 +138,63 @@ function App() {
                   className="w-full border p-2 rounded"
                 />
 
+                <input
+                  type="number"
+                  placeholder="Enrollment Number"
+                  value={form.Enrollment}
+                  onChange={(e) => setForm({ ...form, Enrollment: e.target.value })}
+                  className="w-full border p-2 rounded"
+                />
+
+                <input
+                  type="text"
+                  placeholder="City"
+                  value={form.City}
+                  onChange={(e) => setForm({ ...form, City: e.target.value })}
+                  className="w-full border p-2 rounded"
+                />
+
+                <input
+                  type="number"
+                  placeholder="Phone"
+                  value={form.Phone}
+                  onChange={(e) => setForm({ ...form, Phone: e.target.value })}
+                  className="w-full border p-2 rounded"
+                />
+
                 <button
                   onClick={addStudent}
-                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                  className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
                 >
                   Add Student
                 </button>
+
+              </div>
+            </>
+          )}
+
+{page === "contact" && (
+            <>
+              <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
+
+              <div className="bg-white p-6 rounded shadow max-w-lg space-y-4">
+
+                <div>
+                  <h3 className="font-semibold text-gray-700">Email</h3>
+                  <p className="text-gray-600">support@studentapp.com</p>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold text-gray-700">Phone</h3>
+                  <p className="text-gray-600">+91 9876543210</p>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold text-gray-700">Address</h3>
+                  <p className="text-gray-600">
+                    Rajkot, Gujarat, India
+                  </p>
+                </div>
 
               </div>
             </>
