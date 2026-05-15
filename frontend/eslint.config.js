@@ -1,44 +1,21 @@
-const js = require('@eslint/js');
-const globals = require('globals');
-const tseslint = require('typescript-eslint');
-const reactHooks = require('eslint-plugin-react-hooks');
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import { defineConfig, globalIgnores } from 'eslint/config'
 
-module.exports = tseslint.config(
+export default defineConfig([
+  globalIgnores(['dist']),
   {
-    ignores: [
-      'build',
-      'dist',
-      'coverage',
-      'node_modules',
-      'public',
-      'eslint.config.js',
-      'babel.config.js',
-      'config-overrides.js',
+    files: ['**/*.{js,jsx}'],
+    extends: [
+      js.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
     ],
-  },
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
-  {
-    files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-      },
+      globals: globals.browser,
+      parserOptions: { ecmaFeatures: { jsx: true } },
     },
-    plugins: {
-      'react-hooks': reactHooks,
-    },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-    },
-  }
-);
+  },
+])
