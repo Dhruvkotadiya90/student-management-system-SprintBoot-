@@ -21,7 +21,7 @@ function App() {
     <div className="flex h-screen bg-gray-100">
 
       {/* Sidebar */}
-      <div className={`bg-gray-900 text-white w-64 p-5 space-y-6 absolute md:relative md:translate-x-0 transform ${open ? "translate-x-0" : "-translate-x-full"} transition duration-200`}>
+      <div className={`bg-gray-900 text-white w-60 p-5 space-y-6 absolute md:relative md:translate-x-0 transform ${open ? "translate-x-0" : "-translate-x-full"} transition duration-200`}>
 
         <h2 className="text-2xl font-bold">Dashboard</h2>
 
@@ -60,7 +60,7 @@ function App() {
         {/* Content */}
         <div className="p-6">
 
-          
+
 
           {/* Student List */}
           {page === "list" && (
@@ -173,11 +173,11 @@ function App() {
             </>
           )}
 
-{page === "contact" && (
+          {page === "contact" && (
             <>
               <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
 
-              <div className="bg-white p-6 rounded shadow max-w-lg space-y-4">
+              <div className="bg-white p-6 rounded shadow space-y-4">
 
                 <div>
                   <h3 className="font-semibold text-gray-700">Email</h3>
