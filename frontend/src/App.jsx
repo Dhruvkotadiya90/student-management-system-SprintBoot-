@@ -166,24 +166,24 @@ function App() {
                 <input
                   type="number"
                   placeholder="Enrollment Number"
-                  value={form.Enrollment}
-                  onChange={(e) => setForm({ ...form, Enrollment: e.target.value })}
+                  value={form.enrollment}
+                  onChange={(e) => setForm({ ...form, enrollment: e.target.value })}
                   className="w-full border p-2 rounded"
                 />
 
                 <input
                   type="text"
                   placeholder="City"
-                  value={form.City}
-                  onChange={(e) => setForm({ ...form, City: e.target.value })}
+                  value={form.city}
+                  onChange={(e) => setForm({ ...form, city: e.target.value })}
                   className="w-full border p-2 rounded"
                 />
 
                 <input
                   type="number"
                   placeholder="Phone"
-                  value={form.Phone}
-                  onChange={(e) => setForm({ ...form, Phone: e.target.value })}
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   className="w-full border p-2 rounded"
                 />
 
