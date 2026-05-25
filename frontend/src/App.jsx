@@ -1,23 +1,49 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
+import { 
+  getStudents, 
+  addStudent as addStudentAPI, 
+  deleteStudent 
+} from "./services/StudentService";
+
 
 function App() {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState("list");
-  const [students, setStudents] = useState([
-    { name: "Dhruv", age: 20, Enrollment: "7073", City: "Ahmedabad", Phone: "1234567890" },
-    { name: "Tannaz", age: 19, Enrollment: "7107", City: "Mumbai", Phone: "1234567890" },
-  ]);
+  const [students, setStudents] = useState([]);
 
-  const [form, setForm] = useState({ name: "", age: "", Enrollment: "", City: "", Phone: "" });
+  const [form, setForm] = useState({ name: "", age: "", enrollment: "", city: "", phone: "" });
 
   const addStudent = () => {
+    console.log("Button CLicked");
     if (!form.name || !form.age) return;
-    setStudents([...students, form]);
-    setForm({ name: "", age: "", Enrollment: "", City: "", Phone: "" });
-    setPage("list");
+  
+    addStudentAPI(form).then(() => {
+      fetchStudents(); // reload from DB
+      setForm({ name: "", age: "", enrollment: "", city: "", phone: "" });
+      setPage("list");
+    });
+  };
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+  
+  const fetchStudents = () => {
+    getStudents().then((res) => {
+      setStudents(res.data);
+    });
+  };
+
+  const handleDelete = (id) => {
+    deleteStudent(id).then(() => {
+      fetchStudents();
+    });
   };
 
   return (
+
+    
+
     <div className="flex h-screen bg-gray-100">
 
       {/* Sidebar */}
@@ -88,18 +114,17 @@ function App() {
                         </td>
                       </tr>
                     ) : (
-                      students.map((s, index) => (
-                        <tr key={index} className="border-t">
+                      students.map((s) => (
+                        <tr key={s.id} className="border-t">
                           <td className="p-3">{s.name}</td>
                           <td className="p-3">{s.age}</td>
-                          <td className="p-3">{s.Enrollment}</td>
-                          <td className="p-3">{s.City}</td>
-                          <td className="p-3">{s.Phone}</td>
+                          <td className="p-3">{s.enrollment}</td>
+                          <td className="p-3">{s.city}</td>
+                          <td className="p-3">{s.phone}</td>
                           <td className="p-3">
                             <button
                               onClick={() => {
-                                const updated = students.filter((_, i) => i !== index);
-                                setStudents(updated);
+                                handleDelete(s.id)
                               }}
                               className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                             >
