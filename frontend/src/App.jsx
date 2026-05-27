@@ -14,7 +14,7 @@ function App() {
   const [form, setForm] = useState({ name: "", age: "", enrollment: "", city: "", phone: "" });
 
   const addStudent = () => {
-    console.log("Button CLicked");
+
     if (!form.name || !form.age) return;
   
     addStudentAPI(form).then(() => {
@@ -118,13 +118,13 @@ function App() {
                         <tr key={s.id} className="border-t">
                           <td className="p-3">{s.name}</td>
                           <td className="p-3">{s.age}</td>
-                          <td className="p-3">{s.enrollment}</td>
+                          <td className="p-3">{s.enroll}</td>
                           <td className="p-3">{s.city}</td>
                           <td className="p-3">{s.phone}</td>
                           <td className="p-3">
                             <button
                               onClick={() => {
-                                handleDelete(s.id)
+                                handleDelete(s.id);
                               }}
                               className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                             >
@@ -166,8 +166,8 @@ function App() {
                 <input
                   type="number"
                   placeholder="Enrollment Number"
-                  value={form.enrollment}
-                  onChange={(e) => setForm({ ...form, enrollment: e.target.value })}
+                  value={form.enroll}
+                  onChange={(e) => setForm({ ...form, enroll: e.target.value })}
                   className="w-full border p-2 rounded"
                 />
 

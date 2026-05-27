@@ -9,7 +9,7 @@ import com.example.backend.model.Student;
 import com.example.backend.repository.StudentRepository;
 
 @Service  // ✅ VERY IMPORTANT
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl implements IStudentService {
 
     @Autowired
     private StudentRepository repository;
@@ -26,7 +26,7 @@ public class StudentServiceImpl implements StudentService {
 
 @Override
 public void deleteStudent(int id) {
-    repository.deleteById(id);
+   repository.deleteById(id);
 }
 
 }

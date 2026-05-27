@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.model.Student;
-import com.example.backend.service.StudentService;
+import com.example.backend.service.IStudentService;
 
 @CrossOrigin(origins = "http://localhost:5173")
 
@@ -22,7 +22,7 @@ import com.example.backend.service.StudentService;
 public class StudentController {
 
     @Autowired
-    private StudentService service;
+    private IStudentService service;
 
     @GetMapping
     public List<Student> getAllStudents() {
