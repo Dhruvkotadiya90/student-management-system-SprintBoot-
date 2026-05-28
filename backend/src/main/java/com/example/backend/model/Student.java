@@ -15,10 +15,15 @@ public class Student{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
+    @Column(name = "Name", nullable = false)
     private String name;
+    @Column(name = "City", nullable = false)
     private String city;
+    @Column(name = "Age", nullable = false)
     private int age;
+    @Column(name = "Enrollment Number", nullable = false)
     private long enroll;
+    @Column(name = "Phone", nullable = false)
     private long phone;
 
 }

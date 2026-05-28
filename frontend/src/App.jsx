@@ -1,8 +1,8 @@
-import { useState , useEffect } from "react";
-import { 
-  getStudents, 
-  addStudent as addStudentAPI, 
-  deleteStudent 
+import { useState, useEffect } from "react";
+import {
+  getStudents,
+  addStudent as addStudentAPI,
+  deleteStudent
 } from "./services/StudentService";
 
 
@@ -13,10 +13,23 @@ function App() {
 
   const [form, setForm] = useState({ name: "", age: "", enrollment: "", city: "", phone: "" });
 
+  const handleEdit = (student) => {
+    setForm({
+      id: student.id,
+      name: student.name || "",
+      age: student.age || "",
+      enroll: student.enroll || "",
+      city: student.city || "",
+      phone: student.phone || ""
+    });
+  
+    setPage("update");
+  };
+
   const addStudent = () => {
 
     if (!form.name || !form.age) return;
-  
+
     addStudentAPI(form).then(() => {
       fetchStudents(); // reload from DB
       setForm({ name: "", age: "", enrollment: "", city: "", phone: "" });
@@ -27,7 +40,7 @@ function App() {
   useEffect(() => {
     fetchStudents();
   }, []);
-  
+
   const fetchStudents = () => {
     getStudents().then((res) => {
       setStudents(res.data);
@@ -36,13 +49,11 @@ function App() {
 
   const handleDelete = (id) => {
     deleteStudent(id).then(() => {
-      fetchStudents();
+      fetchStudents(); // reload from DB
     });
   };
 
   return (
-
-    
 
     <div className="flex h-screen bg-gray-100">
 
@@ -63,6 +74,18 @@ function App() {
             className={`p-2 rounded cursor-pointer ${page === "add" ? "bg-gray-700" : "hover:bg-gray-700"}`}
           >
             Add Student
+          </p>
+          <p
+            onClick={() => setPage("update")}
+            className={`p-2 rounded cursor-pointer ${page === "update" ? "bg-gray-700" : "hover:bg-gray-700"}`}
+          >
+            Update Student
+          </p>
+          <p
+            onClick={() => setPage("delete")}
+            className={`p-2 rounded cursor-pointer ${page === "delete" ? "bg-gray-700" : "hover:bg-gray-700"}`}
+          >
+            Delete Student
           </p>
           <p
             onClick={() => setPage("contact")}
@@ -97,12 +120,13 @@ function App() {
 
                   <thead className="bg-gray-800 text-white">
                     <tr>
-                      <th className="p-3">Name</th>
-                      <th className="p-3">Age</th>
-                      <th className="p-3">Enrollment Number</th>
-                      <th className="p-3">City</th>
-                      <th className="p-3">Phone</th>
-                      <th className="p-3">Action</th>
+                      <th className="p-3">Index</th>
+                      <th className="p-3" aria-required="true"
+                      >Name</th>
+                      <th className="p-3" aria-required="true">Age</th>
+                      <th className="p-3" aria-required="true">Enrollment Number</th>
+                      <th className="p-3" aria-required="true">City</th>
+                      <th className="p-3" aria-required="true">Phone</th>
                     </tr>
                   </thead>
 
@@ -116,21 +140,12 @@ function App() {
                     ) : (
                       students.map((s) => (
                         <tr key={s.id} className="border-t">
+                          <td className="p-3">{s.id}</td>
                           <td className="p-3">{s.name}</td>
                           <td className="p-3">{s.age}</td>
                           <td className="p-3">{s.enroll}</td>
                           <td className="p-3">{s.city}</td>
                           <td className="p-3">{s.phone}</td>
-                          <td className="p-3">
-                            <button
-                              onClick={() => {
-                                handleDelete(s.id);
-                              }}
-                              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                            >
-                              Delete
-                            </button>
-                          </td>
                         </tr>
                       ))
                     )}
@@ -197,6 +212,82 @@ function App() {
               </div>
             </>
           )}
+
+          {/* Update Student Form */}
+          {page === "update" && (
+            <>
+              <h2 className="text-2xl font-bold mb-4">Update Student</h2>
+              <div className="bg-white p-6 rounded shadow space-y-4 max-w-md border">
+
+                <input
+                  type="text"
+                  placeholder="Name"
+                  value={form.name || ""}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  className="w-full border p-2 rounded"
+                />
+
+                <input
+                  type="number"
+                  placeholder="Age"
+                  value={form.age || ""}
+                  onChange={(e) => setForm({ ...form, age: e.target.value })}
+                  className="w-full border p-2 rounded"
+                />
+
+                <input
+                  type="number"
+                  placeholder="Enrollment Number"
+                  value={form.enroll || ""}
+                  onChange={(e) => setForm({ ...form, enroll: e.target.value })}
+                  className="w-full border p-2 rounded"
+                />
+
+                <input
+                  type="text"
+                  placeholder="City"
+                  value={form.city || ""}
+                  onChange={(e) => setForm({ ...form, city: e.target.value })}
+                  className="w-full border p-2 rounded"
+                />
+
+                <input
+                  type="number"
+                  placeholder="Phone"
+                  value={form.phone || ""}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  className="w-full border p-2 rounded"
+                />
+
+                <button
+                  onClick={handleEdit}
+                  className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+                >
+                  Update Student
+                </button>
+
+              </div>
+            </>
+          )}
+
+          {/* Delete Student Form */}
+          {page === "delete" && (
+            <>
+              <h2 className="text-2xl font-bold mb-4">Delete Student</h2>
+              <div className="bg-white p-6 rounded shadow space-y-4 max-w-md border">
+
+                <button
+                  onClick={handleDelete}
+                  className="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition"
+                >
+                  Delete Student
+                </button>
+
+              </div>
+            </>
+          )}
+
+          
 
           {page === "contact" && (
             <>
