@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { FaGithub, FaLinkedin } from "../node_modules/react-icons/fa";
 import {
   getStudents,
   addStudent as addStudentAPI,
@@ -22,7 +23,7 @@ function App() {
       city: student.city || "",
       phone: student.phone || ""
     });
-  
+
     setPage("update");
   };
 
@@ -48,9 +49,14 @@ function App() {
   };
 
   const handleDelete = (id) => {
-    deleteStudent(id).then(() => {
-      fetchStudents(); // reload from DB
-    });
+    deleteStudent(id)
+      .then(() => {
+        setStudents((prev) => prev.filter((s) => s.id !== id));
+      })
+      .catch((err) => {
+        console.error("Delete error:", err);
+      });
+    setPage("delete");
   };
 
   return (
@@ -121,19 +127,19 @@ function App() {
                   <thead className="bg-gray-800 text-white">
                     <tr>
                       <th className="p-3">Index</th>
-                      <th className="p-3" aria-required="true"
+                      <th className="p-3"
                       >Name</th>
-                      <th className="p-3" aria-required="true">Age</th>
-                      <th className="p-3" aria-required="true">Enrollment Number</th>
-                      <th className="p-3" aria-required="true">City</th>
-                      <th className="p-3" aria-required="true">Phone</th>
+                      <th className="p-3">Age</th>
+                      <th className="p-3">Enrollment Number</th>
+                      <th className="p-3">City</th>
+                      <th className="p-3">Phone</th>
                     </tr>
                   </thead>
 
                   <tbody>
                     {students.length === 0 ? (
                       <tr>
-                        <td colSpan="3" className="text-center p-4 text-gray-500">
+                        <td colSpan="7" className="text-center p-4 text-gray-500">
                           No students found
                         </td>
                       </tr>
@@ -160,7 +166,7 @@ function App() {
           {page === "add" && (
             <>
               <h2 className="text-2xl font-bold mb-4">Add Student</h2>
-              <div className="bg-white p-6 rounded shadow space-y-4 max-w-md border">
+              <div className="bg-white p-6 rounded-xl shadow space-y-4 max-w border">
 
                 <input
                   type="text"
@@ -216,84 +222,118 @@ function App() {
           {/* Update Student Form */}
           {page === "update" && (
             <>
-              <h2 className="text-2xl font-bold mb-4">Update Student</h2>
-              <div className="bg-white p-6 rounded shadow space-y-4 max-w-md border">
+              <h2 className="text-2xl font-bold mb-4">Update Students</h2>
+              <div className="bg-white shadow rounded overflow-hidden">
+                <table className="w-full text-center border-collapse">
 
-                <input
-                  type="text"
-                  placeholder="Name"
-                  value={form.name || ""}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full border p-2 rounded"
-                />
+                  <thead className="bg-gray-800 text-white">
+                    <tr>
+                      <th className="p-3">Index</th>
+                      <th className="p-3"
+                      >Name</th>
+                      <th className="p-3">Age</th>
+                      <th className="p-3">Enrollment Number</th>
+                      <th className="p-3">City</th>
+                      <th className="p-3">Phone</th>
+                      <th className="p-3">Update</th>
+                    </tr>
+                  </thead>
 
-                <input
-                  type="number"
-                  placeholder="Age"
-                  value={form.age || ""}
-                  onChange={(e) => setForm({ ...form, age: e.target.value })}
-                  className="w-full border p-2 rounded"
-                />
+                  <tbody>
+                    {students.length === 0 ? (
+                      <tr>
+                        <td colSpan="7" className="text-center p-4 text-gray-500">
+                          No students found
+                        </td>
+                      </tr>
+                    ) : (
+                      students.map((s) => (
+                        <tr key={s.id} className="border-t">
+                          <td className="p-3">{s.id}</td>
+                          <td className="p-3">{s.name}</td>
+                          <td className="p-3">{s.age}</td>
+                          <td className="p-3">{s.enroll}</td>
+                          <td className="p-3">{s.city}</td>
+                          <td className="p-3">{s.phone}</td>
+                          <td className="p-3">
+                            <button
+                              onClick={() => handleEdit(s)}
+                              className="bg-green-600 text-white py-1 px-3 rounded hover:bg-green-700 transition"
+                            >
+                              Edit
+                            </button></td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
 
-                <input
-                  type="number"
-                  placeholder="Enrollment Number"
-                  value={form.enroll || ""}
-                  onChange={(e) => setForm({ ...form, enroll: e.target.value })}
-                  className="w-full border p-2 rounded"
-                />
-
-                <input
-                  type="text"
-                  placeholder="City"
-                  value={form.city || ""}
-                  onChange={(e) => setForm({ ...form, city: e.target.value })}
-                  className="w-full border p-2 rounded"
-                />
-
-                <input
-                  type="number"
-                  placeholder="Phone"
-                  value={form.phone || ""}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full border p-2 rounded"
-                />
-
-                <button
-                  onClick={handleEdit}
-                  className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
-                >
-                  Update Student
-                </button>
-
+                </table>
               </div>
             </>
           )}
 
           {/* Delete Student Form */}
+
           {page === "delete" && (
             <>
-              <h2 className="text-2xl font-bold mb-4">Delete Student</h2>
-              <div className="bg-white p-6 rounded shadow space-y-4 max-w-md border">
+              <h2 className="text-2xl font-bold mb-4">Delete Students</h2>
+              <div className="bg-white shadow rounded overflow-hidden">
+                {console.log("Delete page loaded")}
+                <table className="w-full text-center border-collapse">
 
-                <button
-                  onClick={handleDelete}
-                  className="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition"
-                >
-                  Delete Student
-                </button>
+                  <thead className="bg-gray-800 text-white">
+                    <tr>
+                      <th className="p-3">Index</th>
+                      <th className="p-3"
+                      >Name</th>
+                      <th className="p-3">Age</th>
+                      <th className="p-3">Enrollment Number</th>
+                      <th className="p-3">City</th>
+                      <th className="p-3">Phone</th>
+                      <th className="p-3">Delete</th>
+                    </tr>
+                  </thead>
 
+                  <tbody>
+                    {students.length === 0 ? (
+                      <tr>
+                        <td colSpan="7" className="text-center p-4 text-gray-500">
+                          No students found
+                        </td>
+                      </tr>
+                    ) : (
+                      students.map((s) => (
+                        <tr key={s.id} className="border-t">
+                          <td className="p-3">{s.id}</td>
+                          <td className="p-3">{s.name}</td>
+                          <td className="p-3">{s.age}</td>
+                          <td className="p-3">{s.enroll}</td>
+                          <td className="p-3">{s.city}</td>
+                          <td className="p-3">{s.phone}</td>
+                          <td className="p-3">
+                            <button
+                              onClick={() => { handleDelete(s.id); }}
+                              className="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-700 transition"
+                            >
+                              Delete
+                            </button></td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+
+                </table>
               </div>
             </>
           )}
 
-          
+
 
           {page === "contact" && (
             <>
               <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
 
-              <div className="bg-white p-6 rounded shadow space-y-4">
+              <div className="flex flex-col justify-center bg-white p-6 rounded shadow-2xl space-y-4">
 
                 <div>
                   <h3 className="font-semibold text-gray-700">Email</h3>
@@ -312,6 +352,18 @@ function App() {
                   </p>
                 </div>
 
+                <div className="flex flex-row justify-start gap-6">
+                  <div className="flex justify-center gap-6 text-2xl mt-6">
+                    <a href="https://github.com/Dhruvkotadiya90" target="_blank">
+                      <FaGithub className="hover:scale-110 transition" />
+                    </a>
+                    </div>
+                    <div className="flex gap-6 text-2xl mt-6">
+                    <a href="https://www.linkedin.com/in/dhruv-kotadiya-8b843b2b3" target="_blank">
+                      <FaLinkedin className="hover:scale-110 transition text-blue-600 size-30" />
+                    </a>
+                </div>
+              </div>
               </div>
             </>
           )}

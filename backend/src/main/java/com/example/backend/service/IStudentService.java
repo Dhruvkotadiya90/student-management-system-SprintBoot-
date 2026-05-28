@@ -8,5 +8,5 @@ public interface IStudentService {
 
     Student saveStudent(Student student);
 
-    void deleteStudent(int id);
+    void deleteStudent(Long id);
 }
