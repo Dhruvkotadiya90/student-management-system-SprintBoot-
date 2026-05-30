@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8081/students";
+const API_URL = "/api/students";
 
 // ✅ GET all students
 export const getStudents = () => {
