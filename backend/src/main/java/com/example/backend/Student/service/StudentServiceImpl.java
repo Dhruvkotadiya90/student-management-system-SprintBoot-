@@ -1,12 +1,12 @@
-package com.example.backend.service;
+package com.example.backend.Student.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.backend.model.Student;
-import com.example.backend.repository.StudentRepository;
+import com.example.backend.Student.model.Student;
+import com.example.backend.Student.repository.StudentRepository;
 
 @Service  // ✅ VERY IMPORTANT
 public class StudentServiceImpl implements IStudentService {

@@ -1,6 +1,6 @@
-package com.example.backend.service;
+package com.example.backend.Student.service;
 
-import com.example.backend.model.Student;
+import com.example.backend.Student.model.Student;
 import java.util.List;
 
 public interface IStudentService {
