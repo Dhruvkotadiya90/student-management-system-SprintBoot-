@@ -21,7 +21,7 @@ public class Student{
     private String city;
     @Column(name = "Age", nullable = false)
     private int age;
-    @Column(name = "Enrollment Number", nullable = false)
+    @Column(name = "Enrollment_Number", nullable = false)
     private long enroll;
     @Column(name = "Phone", nullable = false)
     private long phone;
