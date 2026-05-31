@@ -12,7 +12,7 @@ function App() {
   const [page, setPage] = useState("list");
   const [students, setStudents] = useState([]);
 
-  const [form, setForm] = useState({ name: "", age: "", enrollment: "", city: "", phone: "" });
+  const [form, setForm] = useState({ name: "", age: "", enrollment: "", city: "", phone: "", email: "" });
 
   const handleEdit = (student) => {
     setForm({
@@ -21,7 +21,8 @@ function App() {
       age: student.age || "",
       enroll: student.enroll || "",
       city: student.city || "",
-      phone: student.phone || ""
+      phone: student.phone || "",
+      email: student.email || ""
     });
 
     setPage("update");
@@ -33,7 +34,7 @@ function App() {
 
     addStudentAPI(form).then(() => {
       fetchStudents(); // reload from DB
-      setForm({ name: "", age: "", enrollment: "", city: "", phone: "" });
+      setForm({ name: "", age: "", enrollment: "", city: "", phone: "", email: "" });
       setPage("list");
     });
   };
@@ -133,6 +134,7 @@ function App() {
                       <th className="p-3">Enrollment Number</th>
                       <th className="p-3">City</th>
                       <th className="p-3">Phone</th>
+                      <th className="p-3">Email</th>
                     </tr>
                   </thead>
 
@@ -152,6 +154,7 @@ function App() {
                           <td className="p-3">{s.enroll}</td>
                           <td className="p-3">{s.city}</td>
                           <td className="p-3">{s.phone}</td>
+                          <td className="p-3">{s.email}</td>
                         </tr>
                       ))
                     )}
@@ -208,6 +211,14 @@ function App() {
                   className="w-full border p-2 rounded"
                 />
 
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className="w-full border p-2 rounded"
+                />
+
                 <button
                   onClick={addStudent}
                   className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
@@ -235,6 +246,7 @@ function App() {
                       <th className="p-3">Enrollment Number</th>
                       <th className="p-3">City</th>
                       <th className="p-3">Phone</th>
+                      <th className="p-3">Email</th>
                       <th className="p-3">Update</th>
                     </tr>
                   </thead>
@@ -255,6 +267,7 @@ function App() {
                           <td className="p-3">{s.enroll}</td>
                           <td className="p-3">{s.city}</td>
                           <td className="p-3">{s.phone}</td>
+                          <td className="p-3">{s.email}</td>
                           <td className="p-3">
                             <button
                               onClick={() => handleEdit(s)}
@@ -290,6 +303,7 @@ function App() {
                       <th className="p-3">Enrollment Number</th>
                       <th className="p-3">City</th>
                       <th className="p-3">Phone</th>
+                      <th className="p-3">Email</th>
                       <th className="p-3">Delete</th>
                     </tr>
                   </thead>
@@ -310,6 +324,7 @@ function App() {
                           <td className="p-3">{s.enroll}</td>
                           <td className="p-3">{s.city}</td>
                           <td className="p-3">{s.phone}</td>
+                          <td className="p-3">{s.email}</td>
                           <td className="p-3">
                             <button
                               onClick={() => { handleDelete(s.id); }}
@@ -357,13 +372,13 @@ function App() {
                     <a href="https://github.com/Dhruvkotadiya90" target="_blank">
                       <FaGithub className="hover:scale-110 transition" />
                     </a>
-                    </div>
-                    <div className="flex gap-6 text-2xl mt-6">
+                  </div>
+                  <div className="flex gap-6 text-2xl mt-6">
                     <a href="https://www.linkedin.com/in/dhruv-kotadiya-8b843b2b3" target="_blank">
                       <FaLinkedin className="hover:scale-110 transition text-blue-600 size-30" />
                     </a>
+                  </div>
                 </div>
-              </div>
               </div>
             </>
           )}

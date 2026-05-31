@@ -25,5 +25,7 @@ public class Student{
     private long enroll;
     @Column(name = "Phone", nullable = false)
     private long phone;
+    @Column(name = "Email", nullable = false)
+    private String email;
 
 }

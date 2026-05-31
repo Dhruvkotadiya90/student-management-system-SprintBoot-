@@ -9,7 +9,8 @@ export default function AddStudent({ editStudent, clearEdit }) {
     enroll:"",
     age:"",
     city:"",
-    phone:""
+    phone:"",
+    email:""
   });
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function AddStudent({ editStudent, clearEdit }) {
       addStudent(student);
     }
 
-    setStudent({ id: null, name: "", email: "",  enroll:"", age:"" ,city:"", phone:"" });
+    setStudent({ id: null, name: "", email: "",  enroll:"", age:"" ,city:"", phone:"",email:"" });
   };
 
   return (
