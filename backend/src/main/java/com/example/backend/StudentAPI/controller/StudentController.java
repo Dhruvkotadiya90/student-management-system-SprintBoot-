@@ -1,4 +1,4 @@
-package com.example.backend.Student.controller;
+package com.example.backend.StudentAPI.controller;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backend.Student.model.Student;
-import com.example.backend.Student.service.IStudentService;
+import com.example.backend.StudentAPI.model.Student;
+import com.example.backend.StudentAPI.service.IStudentService;
 
 @CrossOrigin(origins = "http://localhost:5173")
 

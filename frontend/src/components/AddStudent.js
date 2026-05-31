@@ -5,7 +5,6 @@ export default function AddStudent({ editStudent, clearEdit }) {
   const [student, setStudent] = useState({
     id: null,
     name: "",
-    email: "",
     enroll:"",
     age:"",
     city:"",
@@ -34,7 +33,7 @@ export default function AddStudent({ editStudent, clearEdit }) {
       addStudent(student);
     }
 
-    setStudent({ id: null, name: "", email: "",  enroll:"", age:"" ,city:"", phone:"",email:"" });
+    setStudent({ id: null, name: "", enroll:"", age:"" ,city:"", phone:"",email:"" });
   };
 
   return (
@@ -43,13 +42,6 @@ export default function AddStudent({ editStudent, clearEdit }) {
         name="name"
         value={student.name}
         placeholder="Name"
-        onChange={handleChange}
-      />
-
-      <input
-        name="email"
-        value={student.email}
-        placeholder="Email"
         onChange={handleChange}
       />
 
@@ -78,6 +70,13 @@ export default function AddStudent({ editStudent, clearEdit }) {
         name="phone"
         value={student.phone}
         placeholder="Phone"
+        onChange={handleChange}
+      />
+
+<input
+        name="email"
+        value={student.email}
+        placeholder="Email"
         onChange={handleChange}
       />
 

@@ -1,7 +1,8 @@
-package com.example.backend.Student.service;
+package com.example.backend.StudentAPI.service;
 
-import com.example.backend.Student.model.Student;
 import java.util.List;
+
+import com.example.backend.StudentAPI.model.Student;
 
 public interface IStudentService {
     List<Student> getAllStudents();

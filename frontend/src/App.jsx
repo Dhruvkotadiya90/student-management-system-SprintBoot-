@@ -128,8 +128,7 @@ function App() {
                   <thead className="bg-gray-800 text-white">
                     <tr>
                       <th className="p-3">Index</th>
-                      <th className="p-3"
-                      >Name</th>
+                      <th className="p-3">Name</th>
                       <th className="p-3">Age</th>
                       <th className="p-3">Enrollment Number</th>
                       <th className="p-3">City</th>
@@ -240,8 +239,7 @@ function App() {
                   <thead className="bg-gray-800 text-white">
                     <tr>
                       <th className="p-3">Index</th>
-                      <th className="p-3"
-                      >Name</th>
+                      <th className="p-3">Name</th>
                       <th className="p-3">Age</th>
                       <th className="p-3">Enrollment Number</th>
                       <th className="p-3">City</th>
@@ -297,8 +295,7 @@ function App() {
                   <thead className="bg-gray-800 text-white">
                     <tr>
                       <th className="p-3">Index</th>
-                      <th className="p-3"
-                      >Name</th>
+                      <th className="p-3">Name</th>
                       <th className="p-3">Age</th>
                       <th className="p-3">Enrollment Number</th>
                       <th className="p-3">City</th>
