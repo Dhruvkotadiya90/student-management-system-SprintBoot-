@@ -1,7 +1,7 @@
 services:
   - type: web
     name: student-management-backend
-    env: java
+    env: node
     rootDir: backend
-    buildCommand: mvn clean package
+    buildCommand: sh mvnw clean package
     startCommand: java -jar target/*.jar
