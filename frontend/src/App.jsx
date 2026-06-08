@@ -349,12 +349,12 @@ function App() {
 
                 <div>
                   <h3 className="font-semibold text-gray-700">Email</h3>
-                  <p className="text-gray-600">support@studentapp.com</p>
+                  <p className="text-gray-600">dhruvkotadiya90@zohomail.in</p>
                 </div>
 
                 <div>
                   <h3 className="font-semibold text-gray-700">Phone</h3>
-                  <p className="text-gray-600">+91 9876543210</p>
+                  <p className="text-gray-600">+91 9727894322</p>
                 </div>
 
                 <div>
