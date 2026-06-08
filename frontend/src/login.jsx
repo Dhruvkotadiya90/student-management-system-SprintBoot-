@@ -7,7 +7,7 @@ export default function Login({ onLogin }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       const res = await fetch("https://dhruvsm.onrender.com/auth/login", {
         method: "POST",
@@ -19,14 +19,19 @@ export default function Login({ onLogin }) {
           password,
         }),
       });
-
+  
+      const data = await res.json(); // 🔥 IMPORTANT
+  
       if (res.ok) {
-        localStorage.setItem("auth", "true");
+        // 🔐 STORE TOKEN (MOST IMPORTANT FIX)
+        localStorage.setItem("token", data.token);
+  
         setError("");
-        onLogin(); // move to dashboard
+        onLogin();
       } else {
-        setError("Invalid username or password");
+        setError(data || "Invalid username or password");
       }
+  
     } catch (err) {
       setError("Server error");
     }
