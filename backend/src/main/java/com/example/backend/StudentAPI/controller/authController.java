@@ -3,8 +3,6 @@ package com.example.backend.StudentAPI.controller;
 
 
 import java.util.Map;
-
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
