@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.backend.StudentAPI.model.Student;
 import com.example.backend.StudentAPI.service.IStudentService;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://dhruvsm.netlify.app/")
 
 @RestController
 @RequestMapping("/students")
