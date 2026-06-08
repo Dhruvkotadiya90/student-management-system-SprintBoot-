@@ -13,7 +13,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://dhruvsm.netlify.app/")
+                        .allowedOrigins("https://dhruvsm.netlify.app")
                         .allowedMethods("*")
                         .allowCredentials(true);
             }
