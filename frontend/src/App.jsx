@@ -35,7 +35,7 @@ function App() {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://https://dhruvsm.onrender.com/auth/login", {
+      const res = await fetch("https://dhruvsm.onrender.com/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

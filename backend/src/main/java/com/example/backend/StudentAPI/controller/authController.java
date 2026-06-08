@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Value;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/auth/login")
 @CrossOrigin(origins = "https://dhruvsm.netlify.app/", allowCredentials = "true")
 public class authController {
 
