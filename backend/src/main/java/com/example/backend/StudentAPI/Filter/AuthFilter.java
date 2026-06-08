@@ -1,13 +1,7 @@
 package com.example.backend.StudentAPI.Filter;
 
-import jakarta.servlet.Filter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -24,23 +18,19 @@ public class AuthFilter implements Filter {
 
         String path = req.getRequestURI();
 
-        // ✅ Allow login API without restriction
-        if (path.startsWith("/auth/login")) {
+        // 🔥 Allow these paths fully
+        if (path.startsWith("/auth/login") || path.startsWith("/auth")) {
             chain.doFilter(request, response);
             return;
         }
 
-        // ✅ Get session (do NOT create new one)
         HttpSession session = req.getSession(false);
 
-        // ❌ Block if not logged in
-        if (session == null || session.getAttribute("user") == null) {
+        if (session != null && session.getAttribute("user") != null) {
+            chain.doFilter(request, response);
+        } else {
             res.setStatus(401);
             res.getWriter().write("Unauthorized - Please login");
-            return;
         }
-
-        // ✅ Allow request if logged in
-        chain.doFilter(request, response);
     }
 }
