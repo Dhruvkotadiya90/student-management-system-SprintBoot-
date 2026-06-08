@@ -1,7 +1,5 @@
 package com.example.backend.StudentAPI.controller;
 
-
-
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +20,13 @@ public class authController {
     @Value("${admin_password}")
     private String adminPassword;
 
+
     public authController(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
+
+        System.out.println("ADMIN USER: [" + adminUsername + "]");
+        System.out.println("ADMIN PASS: [" + adminPassword + "]");
+
     }
 
     @GetMapping("/test")
