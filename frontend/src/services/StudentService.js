@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8081/students"; // {/api}
+const API_URL = import.meta.env.VITE_API_URL; // {/api}
 
 // ✅ GET all students
 export const getStudents = () => {
