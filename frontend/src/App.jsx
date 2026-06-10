@@ -195,6 +195,15 @@ function App() {
             className={`p-2 rounded cursor-pointer ${page === "contact" ? "bg-gray-700" : "hover:bg-gray-700"}`}>
             Contact Us
           </p>
+
+          {/* 🔐 LOGOUT BUTTON (ADDED) */}
+          <button
+            onClick={logout}
+            className="bg-red-600 text-white px-3 py-1 rounded hover:bg-gray-700"
+          >
+            Logout
+          </button>
+          
         </nav>
 
       </div>
@@ -207,13 +216,7 @@ function App() {
           <button className="md:hidden text-xl" onClick={() => setOpen(!open)}>☰</button>
           <h1 className="text-xl font-semibold">Student Management System</h1>
 
-          {/* 🔐 LOGOUT BUTTON (ADDED) */}
-          <button
-            onClick={logout}
-            className="bg-red-600 text-white px-3 py-1 rounded"
-          >
-            Logout
-          </button>
+        
         </div>
 
         {/* Content */}
