@@ -12,6 +12,14 @@ import com.example.backend.StudentAPI.utils.JwtUtil;
 @CrossOrigin(origins = "https://dhruvsm.netlify.app", allowCredentials = "true")
 public class authController {
 
+    @PostConstruct
+    public void init(){
+        
+        System.out.println("ADMIN USER: [" + adminUsername + "]");
+        System.out.println("ADMIN PASS: [" + adminPassword + "]");
+
+    }
+
     private final JwtUtil jwtUtil;
 
     @Value("${admin_username}")
@@ -24,9 +32,6 @@ public class authController {
     public authController(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
 
-        System.out.println("ADMIN USER: [" + adminUsername + "]");
-        System.out.println("ADMIN PASS: [" + adminPassword + "]");
-
     }
 
     @GetMapping("/test")
@@ -37,10 +42,19 @@ public class authController {
     @PostMapping("/login")
 public ResponseEntity<?> login(@RequestBody Map<String, String> body) {
 
-    String username = body.get("username");
-    String password = body.get("password");
+    System.out.println("Received body: " + body);
+    System.out.println("Expected: " + adminUsername + " / " + adminPassword);
 
-    if (adminUsername.equals(username) && adminPassword.equals(password)) {
+    String username = body.get("username") != null ? body.get("username").trim() : null;
+    String password = body.get("password") != null ? body.get("password").trim() : null;
+
+    System.out.println("Username from body: " + username);
+    System.out.println("Password from body: " + password);
+
+    // SAFE CHECK (prevents crash)
+    if (username != null && password != null &&
+        adminUsername.equalsIgnoreCase(username) &&
+        adminPassword.equals(password)) {
 
         String token = jwtUtil.generateToken(username);
 
