@@ -43,12 +43,14 @@ function App() {
         body: JSON.stringify({ username, password }),
       });
 
+      const data = await res.json(); // 👈 important
+  
       if (res.ok) {
-        localStorage.setItem("auth", "true");
+        localStorage.setItem("token", data.token); // ✅ store JWT
         setIsLoggedIn(true);
         setLoginError("");
       } else {
-        setLoginError("Invalid credentials");
+        setLoginError(data || "Invalid credentials");
       }
     } catch (err) {
       setLoginError("Server error");
