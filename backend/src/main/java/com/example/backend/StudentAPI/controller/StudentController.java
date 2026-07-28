@@ -19,7 +19,7 @@ import com.example.backend.StudentAPI.service.IStudentService;
 @CrossOrigin(origins = "https://dhruvsm.netlify.app/", allowCredentials = "true")
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/students")
 public class StudentController {
 
     @Autowired
