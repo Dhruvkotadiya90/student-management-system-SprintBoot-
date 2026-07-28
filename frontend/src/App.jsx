@@ -21,48 +21,6 @@ function App() {
     email: ""
   });
 
-  // 🔐 LOGIN STATE (ADDED)
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("auth") === "true"
-  );
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [loginError, setLoginError] = useState("");
-
-  // 🔐 LOGIN API (ADDED)
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await fetch("https://dhruvsm.onrender.com/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
-
-      const data = await res.json(); // 👈 important
-  
-      if (res.ok) {
-        localStorage.setItem("token", data.token); // ✅ store JWT
-        setIsLoggedIn(true);
-        setLoginError("");
-      } else {
-        setLoginError(data || "Invalid credentials");
-      }
-    } catch (err) {
-      setLoginError("Server error");
-    }
-  };
-
-  // 🔐 LOGOUT (ADDED)
-  const logout = () => {
-    localStorage.removeItem("auth");
-    setIsLoggedIn(false);
-  };
-
   const handleEdit = (student) => {
     setForm({
       id: student.id,
