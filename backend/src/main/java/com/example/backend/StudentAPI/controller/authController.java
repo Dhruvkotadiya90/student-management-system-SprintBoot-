@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.backend.StudentAPI.utils.JwtUtil;
 
+import jakarta.annotation.PostConstruct;
+
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "https://dhruvsm.netlify.app", allowCredentials = "true")
