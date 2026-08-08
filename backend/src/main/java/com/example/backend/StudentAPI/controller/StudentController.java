@@ -2,7 +2,6 @@ package com.example.backend.StudentAPI.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +21,11 @@ import com.example.backend.StudentAPI.service.IStudentService;
 @RequestMapping("/students")
 public class StudentController {
 
-    @Autowired
-    private IStudentService service;
+    private final IStudentService service;
+
+    StudentController(IStudentService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<Student> getAllStudents() {
